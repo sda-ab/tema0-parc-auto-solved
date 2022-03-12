@@ -11,10 +11,9 @@ int main(int argc, char *argv[]) {
     Masina *cars = NULL;
     int numberOfCars = countLinesInFile(argv[2]);
     int task[numberOfTasks];
-    FILE *cerinteInput = NULL;
+    FILE *cerinteInput = openFile(argv[1], READ);
 
-    if ((cerinteInput = fopen(argv[1], "r")) == NULL) {
-        printf("Eroare la deschiderea fisierului");
+    if (cerinteInput == NULL) {
         exit(EXIT_FAILURE);
     }
 

@@ -1,12 +1,19 @@
 #include "masina.h"
 
+FILE *openFile(char *inputFilePath, char mode[]) {
+    FILE *file = NULL;
+    if ((file = fopen(inputFilePath, mode)) == NULL) {
+        printf("Eroare la deschiderea fisierului %s\n", inputFilePath);
+        return NULL;
+    }
+
+    return file;
+}
+
 int countLinesInFile(char *inputFilePath) {
-    FILE *input = NULL;
+    FILE *input = openFile(inputFilePath, READ);
     int numberOfLines = 0;
     char line[200];
-
-    if ((input = fopen(inputFilePath, "r")) == NULL) 
-        printf("eroare la deschidere\n");
 
     while(fgets(line, 200, input)) {
             ++numberOfLines;
@@ -15,10 +22,6 @@ int countLinesInFile(char *inputFilePath) {
     fclose(input);
 
     return numberOfLines;
-}
-
-void carShow(Masina *car) {
-    printf("%s %s %s %d %d\n", car->marca, car->model, car->tokenMasina, car->pretAchizitie, car->pretVanzare);
 }
 
 void deepCopy (Masina source, Masina *destination) {
@@ -53,7 +56,7 @@ void swapIfConditionFulfilled(Masina *firstCar, Masina *secondCar) {
     }
 }
 
-void alphabetialcSortCars(Masina *listaMasini, int numberOfCars) {
+void alphabeticalSortCars(Masina *listaMasini, int numberOfCars) {
     for (int i = 0; i < numberOfCars - 1; i++) {
         for (int j = 0; j < numberOfCars - i - 1; j++) {
             swapIfConditionFulfilled(&listaMasini[j], &listaMasini[j + 1]);
@@ -70,11 +73,8 @@ void printCars(Masina *listaMasini, int numberOfCars) {
 Masina *createCarsInventory(char *inputFilePath) {
     int numberOfCars = countLinesInFile(inputFilePath);
 
-    FILE *input = NULL;
+    FILE *input = openFile(inputFilePath, READ);
     Masina *listaMasini = (Masina *)malloc(numberOfCars * sizeof(Masina));
-
-    if ((input = fopen(inputFilePath, "r")) == NULL)
-        printf("Eroare, fisierul nu a putut fi deschis!\n");
 
     char marcaAux[25], modelAux[25];
     for (int i = 0; i < numberOfCars; i++) {
@@ -92,7 +92,7 @@ Masina *createCarsInventory(char *inputFilePath) {
 Masina *enchantedCreateCarsInventory(char *inputFilePath) {
     int numberOfCars = countLinesInFile(inputFilePath);
     Masina *listaMasini = createCarsInventory(inputFilePath);
-    alphabetialcSortCars(listaMasini, numberOfCars);
+    alphabeticalSortCars(listaMasini, numberOfCars);
 
     return listaMasini;
 }

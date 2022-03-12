@@ -1,10 +1,7 @@
 #include "task.h"
 
 void printSortedCars(Masina *listaMasini, int numberOfCars, char *outputFilePath) {
-    FILE *output = NULL;
-
-    if ((output = fopen(outputFilePath, "w")) == NULL)
-        printf("Eroare, fisierul nu a putut fi deschis!");
+    FILE *output = openFile(outputFilePath, WRITE);
     
     for (int i = 0; i < numberOfCars; i++)
         fprintf(output, "%s %s %s %d %d\n", listaMasini[i].marca, listaMasini[i].model, listaMasini[i].tokenMasina, listaMasini[i].pretAchizitie, listaMasini[i].pretVanzare);
@@ -13,11 +10,8 @@ void printSortedCars(Masina *listaMasini, int numberOfCars, char *outputFilePath
 }
 
 void generateStatisticsAndPrintInFile(Masina *listaMasini, int numberOfCars, char *outputFilePath) {
-    FILE *output = NULL;
+    FILE *output = openFile(outputFilePath, WRITE);
 
-    if ((output = fopen(outputFilePath, "w")) == NULL)
-        printf("Eroare, fisierul nu a putut fi deschis!");
-    
     int counter = 1;
 
     for (int i = 0; i < numberOfCars - 1; i++) {
@@ -66,13 +60,8 @@ int sellCarsAndReturnProfit(Masina **listaMasini, int *numberOfCars, char marca[
 }
 
 void runDemonstrationJob(Masina **listaMasini, int *numberOfCars, char *outputFilePath, char *marciFilePath) {
-    FILE *output = NULL;
-    if ((output = fopen(outputFilePath, "w")) == NULL)
-        printf("Eroare, fisierul nu a putut fi deschis!");
-
-    FILE *input = NULL;
-    if ((input = fopen(marciFilePath, "r")) == NULL)
-        printf("Eroare, fisierul de marci nu a putut fi deschis!");
+    FILE *output = openFile(outputFilePath, WRITE);
+    FILE *input = openFile(marciFilePath, READ);
     
     int numberOfMarci = countLinesInFile(marciFilePath);
     int profit = 0;
