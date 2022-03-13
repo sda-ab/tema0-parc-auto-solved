@@ -24,7 +24,7 @@ void swap(Masina *firstCar, Masina *secondCar);
 void swapIfConditionFulfilled(Masina *firstCar, Masina *secondCar);
 void alphabeticalSortCars(Masina *listaMasini, int numberOfCars);
 void printCars(Masina *listaMasini, int numberOfCars);
-Masina *createCarsInventory(char *inputFilePath);
-Masina *enchantedCreateCarsInventory(char *inputFilePath);
+Masina *createCarsInventory(char *inputFilePath, int *numberOfCars);
+Masina *enchantedCreateCarsInventory(char *inputFilePath, int *numberOfCars);
 
 #endif

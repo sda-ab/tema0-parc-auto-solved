@@ -11,7 +11,6 @@ void printSortedCars(Masina *listaMasini, int numberOfCars, char *outputFilePath
 
 void generateStatisticsAndPrintInFile(Masina *listaMasini, int numberOfCars, char *outputFilePath) {
     FILE *output = openFile(outputFilePath, WRITE);
-
     int counter = 1;
 
     for (int i = 0; i < numberOfCars - 1; i++) {
@@ -39,7 +38,6 @@ int numberOfCarsToSell(Masina *listaMasini, int numberOfCars, char marca[]) {
 
 int sellCarsAndReturnProfit(Masina **listaMasini, int *numberOfCars, char marca[]) {
     int carsToSell = numberOfCarsToSell(*listaMasini, *numberOfCars, marca);
-
     Masina *updatedCarList = (Masina *)malloc((*numberOfCars - carsToSell) * sizeof(Masina));
 
     int flag = 0, profit = 0;

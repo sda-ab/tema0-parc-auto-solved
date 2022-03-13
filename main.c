@@ -8,29 +8,25 @@ int main(int argc, char *argv[]) {
     argv[3] = rezultate.out
     argv[4] = marci.in
     */
-    Masina *cars = NULL;
-    int numberOfCars = countLinesInFile(argv[2]);
-    int task[numberOfTasks];
     FILE *cerinteInput = openFile(argv[1], READ);
+    Masina *cars = NULL;
+    int numberOfCars, task[numberOfTasks];
 
-    if (cerinteInput == NULL) {
+    if (cerinteInput == NULL)
         exit(EXIT_FAILURE);
-    }
 
-    for (int i = 0; i < numberOfTasks; i++) {
+    for (int i = 0; i < numberOfTasks; i++)
         fscanf(cerinteInput, "%d", &task[i]);
-    }
 
     fclose(cerinteInput);
     
     if (task[0] == 1) {
-        cars = enchantedCreateCarsInventory(argv[2]);
+        cars = enchantedCreateCarsInventory(argv[2], &numberOfCars);
         printSortedCars(cars, numberOfCars, argv[3]);
     }
 
-    if (task[1] == 1) {
+    if (task[1] == 1)
         generateStatisticsAndPrintInFile(cars, numberOfCars, argv[3]); //groupBy de sarakie
-    }
 
     if (task[2] == 1) {
         if (argv[4] == NULL) {

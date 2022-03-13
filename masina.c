@@ -15,9 +15,8 @@ int countLinesInFile(char *inputFilePath) {
     int numberOfLines = 0;
     char line[200];
 
-    while(fgets(line, 200, input)) {
-            ++numberOfLines;
-    }
+    while(fgets(line, 200, input))
+        ++numberOfLines;
 
     fclose(input);
 
@@ -41,7 +40,6 @@ void swap(Masina *firstCar, Masina *secondCar) {
 }
 
 void swapIfConditionFulfilled(Masina *firstCar, Masina *secondCar) {
-    
     if (strcmp(firstCar->marca, secondCar->marca) > 0) {
         swap(firstCar, secondCar);
     }
@@ -49,35 +47,33 @@ void swapIfConditionFulfilled(Masina *firstCar, Masina *secondCar) {
         if (strcmp(firstCar->model, secondCar->model) > 0) {
             swap(firstCar, secondCar);
         }
-        else if (strcmp(firstCar->model, secondCar->model) == 0)
+        else if (strcmp(firstCar->model, secondCar->model) == 0) {
             if (strcmp(firstCar->tokenMasina, secondCar->tokenMasina) > 0) {
                 swap(firstCar, secondCar);
             }
-    }
-}
-
-void alphabeticalSortCars(Masina *listaMasini, int numberOfCars) {
-    for (int i = 0; i < numberOfCars - 1; i++) {
-        for (int j = 0; j < numberOfCars - i - 1; j++) {
-            swapIfConditionFulfilled(&listaMasini[j], &listaMasini[j + 1]);
         }
     }
 }
 
-void printCars(Masina *listaMasini, int numberOfCars) {
+void alphabeticalSortCars(Masina *listaMasini, int numberOfCars) {
+    for (int i = 0; i < numberOfCars - 1; i++)
+        for (int j = 0; j < numberOfCars - i - 1; j++)
+            swapIfConditionFulfilled(&listaMasini[j], &listaMasini[j + 1]);
+}
 
+void printCars(Masina *listaMasini, int numberOfCars) {
     for (int i = 0; i < numberOfCars; i++)
         printf("%s %s %s %d %d\n", listaMasini[i].marca, listaMasini[i].model, listaMasini[i].tokenMasina, listaMasini[i].pretAchizitie, listaMasini[i].pretVanzare);
 }
 
-Masina *createCarsInventory(char *inputFilePath) {
-    int numberOfCars = countLinesInFile(inputFilePath);
+Masina *createCarsInventory(char *inputFilePath, int *numberOfCars) {
+    *numberOfCars = countLinesInFile(inputFilePath);
 
     FILE *input = openFile(inputFilePath, READ);
-    Masina *listaMasini = (Masina *)malloc(numberOfCars * sizeof(Masina));
+    Masina *listaMasini = (Masina *)malloc(*numberOfCars * sizeof(Masina));
 
     char marcaAux[25], modelAux[25];
-    for (int i = 0; i < numberOfCars; i++) {
+    for (int i = 0; i < *numberOfCars; i++) {
         fscanf(input, "%s%s%s%d%d", marcaAux, modelAux, listaMasini[i].tokenMasina, &listaMasini[i].pretAchizitie, &listaMasini[i].pretVanzare);
         listaMasini[i].marca = strdup(marcaAux);
         listaMasini[i].model = strdup(modelAux);
@@ -88,11 +84,9 @@ Masina *createCarsInventory(char *inputFilePath) {
     return listaMasini;
 }
 
-
-Masina *enchantedCreateCarsInventory(char *inputFilePath) {
-    int numberOfCars = countLinesInFile(inputFilePath);
-    Masina *listaMasini = createCarsInventory(inputFilePath);
-    alphabeticalSortCars(listaMasini, numberOfCars);
+Masina *enchantedCreateCarsInventory(char *inputFilePath, int *numberOfCars) {
+    Masina *listaMasini = createCarsInventory(inputFilePath, numberOfCars);
+    alphabeticalSortCars(listaMasini, *numberOfCars);
 
     return listaMasini;
 }
