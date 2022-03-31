@@ -1,5 +1,5 @@
 build:
-	gcc *.c -o parcAuto
+	gcc src/*.c -o parcAuto
 run: 
 	./parcAuto cerinte.in date.in rezultate.out marci.in
 clean:
