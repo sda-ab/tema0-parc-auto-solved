@@ -1,4 +1,4 @@
-#include "masina.h"
+#include "headers/masina.h"
 
 FILE *openFile(char *inputFilePath, char mode[]) {
     FILE *file = NULL;

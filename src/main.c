@@ -1,13 +1,7 @@
-#include "task.h"
+#include "headers/task.h"
 #define numberOfTasks 3
 
 int main(int argc, char *argv[]) {
-    /*
-    argv[1] = cerinte.in
-    argv[2] = date.in
-    argv[3] = rezultate.out
-    argv[4] = marci.in
-    */
     FILE *cerinteInput = openFile(argv[1], READ);
     Masina *cars = NULL;
     int numberOfCars, task[numberOfTasks];
@@ -26,7 +20,7 @@ int main(int argc, char *argv[]) {
     }
 
     if (task[1] == 1)
-        generateStatisticsAndPrintInFile(cars, numberOfCars, argv[3]); //groupBy de sarakie
+        generateStatisticsAndPrintInFile(cars, numberOfCars, argv[3]);
 
     if (task[2] == 1) {
         if (argv[4] == NULL) {
@@ -38,5 +32,7 @@ int main(int argc, char *argv[]) {
     }
 
     free(cars);
+    cars = NULL;
+    
     return 0;
 }
