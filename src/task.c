@@ -74,4 +74,7 @@ void runDemonstrationJob(Masina **listaMasini, int *numberOfCars, char *outputFi
         fprintf(output, "%s %s %s %d %d\n", (*listaMasini + i)->marca, (*listaMasini + i)->model, (*listaMasini + i)->tokenMasina, (*listaMasini + i)->pretAchizitie, (*listaMasini + i)->pretVanzare);
 
     fprintf(output, "%d\n", profit);
+
+    fclose(output);
+    fclose(input);
 }
